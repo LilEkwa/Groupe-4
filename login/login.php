@@ -1,36 +1,54 @@
 <?php
 session_start();
-include 'config.php';
 
-if ( $_SERVER[ 'REQUEST_METHOD' ] == 'POST' ) {
-    $email = trim( $_POST[ 'email' ] );
-    $password = $_POST[ 'password' ];
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "aecgs";
 
-    $stmt = $conn->prepare( 'SELECT id, name, password,acctype,authentified FROM all_users WHERE email = ?' );
-    $stmt->bind_param( 's', $email );
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result( $id, $name, $hashedPassword, $acctype, $authentified );
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    $stmt->fetch();
+if ($conn->connect_error) {
+    die("Échec de la connexion : " . $conn->connect_error);
+}
 
-    if ( $stmt->num_rows > 0 && ( $password == $hashedPassword ) ) {
-        if ( $authentified == 'O' ) {
-            $_SESSION[ 'user_id' ] = $id;
-            $_SESSION[ 'username' ] = $name;
-            $_SESSION[ 'acctype' ] = $acctype;
-            $_SESSION[ 'success' ] = 'Connexion reussie';
-            header( 'Location: ../index.php?status=success' );
-        } else {
-            $_SESSION[ 'error' ] = 'Vous devez confirmer votre adresse email.';
-            header( 'Location: auth.php?status=cverify' );
-        }
-    } else {
-        $_SESSION[ 'error' ] = 'Erreur lors de la connecion.';
-        header( 'Location: auth.php?status=error' );
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    // Vérifier que les champs ne sont pas vides
+    if (empty($email) || empty($password)) {
+        $_SESSION['error'] = "Tous les champs sont obligatoires.";
+        header("Location: ../login.php");
+        exit();
     }
 
-    $stmt->close();
-    $conn->close();
+    // Requête pour récupérer l'utilisateur
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc(); 
+
+    if ($user) {
+        // Vérifier le mot de passe
+        if (password_verify($password, $user['password'])) {
+            header("Location: verify.php");
+            exit();
+        } 
+        else {
+            $_SESSION['error'] = "Mot de passe incorrect.";
+            header("Location: ../login.php");
+            exit();
+        }
+    } 
+    else {
+        $_SESSION['error'] = "Aucun utilisateur trouvé avec cet email.";
+        header("Location: ../login.php");
+        exit();
+    }
 }
 ?>
