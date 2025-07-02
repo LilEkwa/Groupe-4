@@ -128,7 +128,8 @@ include 'navbar.php';
     }
 </style>
 
-<div class="admin-header">
+<div class="admin-header p-12 pt-24">
+    <div style="margin-top:50px" ></div>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-8">

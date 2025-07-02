@@ -14,50 +14,42 @@
     
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             padding: 20px 0;
         }
-        
         .register-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(40, 167, 69, 0.08);
         }
-        
         .register-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
             border-radius: 20px 20px 0 0;
         }
-        
         .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.15);
         }
-        
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             border: none;
         }
-        
         .btn-primary:hover {
-            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            background: linear-gradient(135deg, #218838 0%, #138d75 100%);
             transform: translateY(-2px);
         }
-        
         .password-toggle {
             cursor: pointer;
-            color: #6c757d;
+            color: #20c997;
         }
-        
         .password-toggle:hover {
-            color: #667eea;
+            color: #28a745;
         }
-        
         .password-strength {
             height: 4px;
             border-radius: 2px;
@@ -186,7 +178,7 @@
                 </div>
                 
                 <div class="text-center mt-4">
-                    <a href="../index.php" class="text-white text-decoration-none">
+                    <a href="../index.php" class="text-success text-decoration-none fw-bold">
                         <i class="ri-arrow-left-line me-1"></i>Retour à l'accueil
                     </a>
                 </div>
