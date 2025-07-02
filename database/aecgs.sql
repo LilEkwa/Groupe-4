@@ -28,12 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `surname` varchar(100) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `account_type` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY(`id`),
+  UNIQUE('email'),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
