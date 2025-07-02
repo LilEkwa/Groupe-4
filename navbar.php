@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
     <a href="index.php" class="navbar-brand p-0" style="width: 100%;">
-        <img src="img/logo.jpg" alt="Logo">
+        <img src="img/aecgs_logo-_1_.png" width="200px" height="300px" alt="Logo">
     </a>
 
     <!-- Gestion de la connexion -->

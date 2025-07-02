@@ -6,7 +6,7 @@
                         <div class="footer-item">
                             <a href="index.html" class="p-0">
                                 <!-- <h4 class="text-white"><i class="fas fa-search-dollar me-3"></i>Stocker</h4> -->
-                                <img src="img/logo.png" style="width: 100px;" alt="Logo">
+                                <img src="img/aecgs_logo-_1_.png" style="width: 300px;" alt="Logo">
                             </a>
                             <p class="mb-4">
 
