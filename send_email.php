@@ -4,27 +4,23 @@ require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if (isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
-    $verification_link = "https://cameroungrandsudbury.ca/login/verify.php?email=$email&code=" . md5($email);
-
-    $mail = new PHPMailer(true);
+function send_verification_email($name, $surname, $email) {
+    $verification_link = "http://localhost/Groupe-4/login/verify.php?email=$email&code=" . md5($email);
 
     try {
-        // Paramètres du serveur
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Remplacez par votre serveur SMTP
-        $mail->SMTPAuth = true;
-        $mail->Username = 'aegcscanada@gmail.com'; // Remplacez par votre adresse email
-        $mail->Password = 'fqmn hyuj jtwk xpvc'; // Remplacez par votre mot de passe
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->SMTPSecure = 'tls';
+        // Créer l'objet PHPMailer
+        $mail = new PHPMailer(true);
 
-        // Destinataires
-        $mail->setFrom('aegcscanada@gmail.com', 'AEGCS');
+        // Configurer le serveur SMTP (Mailtrap ici)
+        $mail->isSMTP();
+        $mail->Host       = 'sandbox.smtp.mailtrap.io';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = '94bd77753c724e'; // remplace par tes vrais identifiants
+        $mail->Password   = '9c1534d983cf9f';
+        $mail->Port       = 2525;
+
+        // Expéditeur / Destinataire
+        $mail->setFrom('no-reply@aecgs.local', 'AECGS');
         $mail->addAddress($email, "$name $surname");
 
         // Contenu de l'email
@@ -32,17 +28,16 @@ if (isset($_POST['register'])) {
         $mail->Subject = 'Confirmez votre compte';
         $mail->Body    = "
             <h1>Bonjour $name $surname,</h1>
-            <p>Merci de vous être inscrit sur notre site. Veuillez cliquer sur le lien ci-dessous pour confirmer votre compte :</p>
-            <a href='$verification_link' style='display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #4CAF50; text-decoration: none; border-radius: 5px;'>Confirmer mon compte</a>
-            <p>Si vous n'avez pas demandé la création de ce compte, veuillez ignorer cet email.</p>
-            <p>Cordialement,<br>L'équipe AECGS</p>
+            <p>Merci pour votre inscription. Veuillez cliquer ci-dessous pour vérifier votre adresse e-mail :</p>
+            <a href='$verification_link' style='padding:10px 20px;background:#28a745;color:#fff;text-decoration:none;border-radius:5px;'>Confirmer mon compte</a>
         ";
-        $mail->AltBody = "Bonjour $name $surname,\n\nMerci de vous être inscrit sur notre site. Veuillez cliquer sur le lien ci-dessous pour confirmer votre compte :\n\n$verification_link\n\nSi vous n'avez pas demandé la création de ce compte, veuillez ignorer cet email.\n\nCordialement,\nL'équipe AECGS";
+        $mail->AltBody = "Bonjour $name $surname,\n\nCliquez ici pour vérifier : $verification_link";
 
         $mail->send();
-        echo 'Message envoyé avec succès';
+        return true;
     } catch (Exception $e) {
-        echo "Le message n'a pas pu être envoyé. Erreur de Mailer : {$mail->ErrorInfo}";
+        error_log("Erreur lors de l'envoi du mail: " . $mail->ErrorInfo);
+        return false;
     }
 }
 ?>
