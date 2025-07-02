@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             require_once '../send_email.php';
             send_verification_email($username, $surname, $email);
             $_SESSION['registration_success'] = "Inscription réussie. Vous pouvez maintenant vous connecter.";
-            header("Location: ../login.php");
+           // header("Location: ../login.php");
             exit();
         } 
         else {

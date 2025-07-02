@@ -1,14 +1,16 @@
 <?php
-$servername = "mysql.hostinger.com";
-$username = "u332279927_aecgs";
-$password = "Yoyo2024!";
-$dbname = "u332279927_aecgs";
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "aecgs";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Échec de la connexion : " . $conn->connect_error);
 }
+
 if ( ( isset( $_GET[ 'email' ] ) ) && ( !empty( $_GET[ 'email' ] ) ) && ( isset( $_GET[ 'code' ] ) ) && !empty( $_GET[ 'code' ] ) ) {
     ?>
     <!DOCTYPE html>
@@ -69,7 +71,7 @@ if ( ( isset( $_GET[ 'email' ] ) ) && ( !empty( $_GET[ 'email' ] ) ) && ( isset(
          <h1 class="login__title">Verify your Email.</h1>
 
          <div class="login__area">
-            <form  method="POST" class="login__form">
+            <form  method="POST" action="verify_password.php" class="login__form">
                <div class="login__content grid">
                   <div class="login__box">
                      <input type="password" name="password" id="password" required placeholder=" " class="login__input">
@@ -89,34 +91,13 @@ if ( ( isset( $_GET[ 'email' ] ) ) && ( !empty( $_GET[ 'email' ] ) ) && ( isset(
 
                      <i class="ri-eye-off-fill login__icon login__password" id="loginPassword"></i>
                   </div>
+                  <input type="hidden" name="email" value="<?php echo htmlspecialchars($_GET['email'] ?? '', ENT_QUOTES); ?>">
+                  <input type="hidden" name="code" value="<?php echo htmlspecialchars($_GET['code'] ?? '', ENT_QUOTES); ?>">
                </div>
                <button type="submit"name="verify" class="login__button">Verify</button>
             </form>
          </div>
       </div>
-            <?php
-                if (isset($_POST["verify"])) {
-                    $email = $_GET["email"];
-                    extract($_POST);
-                    $stmt = $conn->query( "SELECT id, name, password,acctype,authentified FROM all_users WHERE email = '$email' " );
-                    $smtt = $stmt->fetch_assoc();
-                    $hashedPassword = $smtt["password"];
-                    echo $password;
-                    echo $hashedPassword;
-    if ( $password == $hashedPassword ) {
-            $_SESSION[ 'user_id' ] = $id;
-            $_SESSION[ 'username' ] = $name;
-            $_SESSION[ 'acctype' ] = $acctype;
-            $_SESSION[ 'success' ] = 'Connexion reussie';
-            $conn->query("UPDATE all_users SET password = '$cpassword', authentified = 'O' WHERE email = '$email'");
-            header( 'Location: ../index.php?status=success' );
-    } else {
-        $_SESSION[ 'error' ] = 'Mot de Passe invalide.';
-        header( "Location: verify.php?status=error&&email=$email&&code=dd" );
-    }
-                }
-            ?>
-     
    </div>
 
    <!--=============== MAIN JS ===============-->
