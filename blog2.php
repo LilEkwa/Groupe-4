@@ -15,7 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #454644FF 0%, #787878 100%);
+            background-image: url('https://cameroungrandsudbury.ca/img/476796242_122216537678196747_3619470869414038664_n.jpg');
             min-height: 100vh;
         }
 
@@ -254,6 +254,182 @@
             text-decoration: underline;
         }
 
+         /* Comments Section */
+        .comments-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .comments-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .toggle-comments {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-comments:hover {
+            background: #2ecc71;
+            transform: scale(1.05);
+        }
+
+        .comments-container {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .comment-input:focus {
+            border-color: #27ae60;
+        }
+
+        .comment-submit {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .comment-submit:hover {
+            background: #2ecc71;
+        }
+
+        .comment {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid #27ae60;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-left: 0.5rem;
+        }
+
+        .comment-text {
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Modal for Article View */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 2rem;
+            border: none;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            padding-right: 40px;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .modal-content-text {
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        .modal-comments {
+            border-top: 2px solid #eee;
+            padding-top: 2rem;
+        }
+
+        .modal-comments h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+
         /* Pagination */
         .pagination {
             display: flex;
@@ -325,6 +501,17 @@
             .filters {
                 justify-content: center;
             }
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                padding: 1.5rem;
+            }
+
+            .card-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -390,7 +577,11 @@
                 category: "technologie",
                 date: "2025-06-15",
                 image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop",
-                author: "Marie Dubois"
+                author: "Marie Dubois",
+                comments: [
+                    { author: "Jean Martin", date: "2025-06-16", text: "Très bon article, merci pour ces insights !" },
+                    { author: "Sophie Laurent", date: "2025-06-17", text: "L'IA va effectivement changer notre façon de travailler." }
+                ]
             },
             {
                 id: 2,
@@ -426,7 +617,11 @@
                 category: "actualites",
                 date: "2025-05-20",
                 image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&h=200&fit=crop",
-                author: "Équipe AECGS"
+                author: "Équipe AECGS",
+                comments: [
+                    { author: "Client Satisfait", date: "2025-05-21", text: "Félicitations ! Bien mérité !" },
+                    { author: "Partenaire AECGS", date: "2025-05-22", text: "Très fier de travailler avec vous." }
+                ]
             },
             {
                 id: 6,
@@ -451,6 +646,7 @@
 
         // Fonction pour créer une carte d'article
         function createArticleCard(article) {
+            const commentsCount = article.comments ? article.comments.length : 0;
             return `
                 <article class="blog-card fade-in" data-category="${article.category}">
                     <img src="${article.image}" alt="${article.title}" loading="lazy">
@@ -465,11 +661,87 @@
                             <small style="color: #999;">Par ${article.author}</small>
                             <a href="#" class="read-more" onclick="openArticle(${article.id})">Lire la suite →</a>
                         </div>
+                        
+                        <!-- Section Commentaires -->
+                        <div class="comments-section">
+                            <div class="comments-header">
+                                <span class="comments-count">${commentsCount} commentaire${commentsCount > 1 ? 's' : ''}</span>
+                                <button class="toggle-comments" onclick="toggleComments(${article.id})">
+                                    💬 Voir commentaires
+                                </button>
+                            </div>
+                            <div class="comments-container" id="comments-${article.id}">
+                                <div class="comment-form">
+                                    <input type="text" class="comment-input" placeholder="Ajouter un commentaire..." id="comment-input-${article.id}">
+                                    <button class="comment-submit" onclick="addComment(${article.id})">Publier</button>
+                                </div>
+                                <div class="comments-list" id="comments-list-${article.id}">
+                                    ${article.comments ? article.comments.map(comment => `
+                                        <div class="comment">
+                                            <span class="comment-author">${comment.author}</span>
+                                            <span class="comment-date">${formatDate(comment.date)}</span>
+                                            <div class="comment-text">${comment.text}</div>
+                                        </div>
+                                    `).join('') : ''}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </article>
             `;
         }
+        // Fonction pour basculer l'affichage des commentaires
+        function toggleComments(articleId) {
+            const commentsContainer = document.getElementById(`comments-${articleId}`);
+            const toggleBtn = event.target;
+            
+            if (commentsContainer.style.display === 'none' || commentsContainer.style.display === '') {
+                commentsContainer.style.display = 'block';
+                toggleBtn.textContent = '^ Masquer commentaires';
+            } else {
+                commentsContainer.style.display = 'none';
+                toggleBtn.textContent = '💬 Voir commentaires';
+            }
+        }
+         // Fonction pour ajouter un commentaire
+        function addComment(articleId) {
+            const commentInput = document.getElementById(`comment-input-${articleId}`);
+            const commentText = commentInput.value.trim();
+            
+            if (commentText === '') {
+                alert('Veuillez saisir un commentaire.');
+                return;
+            }
 
+            // Trouver l'article
+            const article = blogArticles.find(a => a.id === articleId);
+            if (!article) return;
+
+            // Ajouter le nouveau commentaire
+            const newComment = {
+                author: 'Utilisateur', 
+                date: new Date().toISOString().split('T')[0],
+                text: commentText
+            };
+
+            if (!article.comments) {
+                article.comments = [];
+            }
+            article.comments.push(newComment);
+
+            // Mettre à jour l'affichage
+            const commentsList = document.getElementById(`comments-list-${articleId}`);
+            const commentElement = document.createElement('div');
+            commentElement.className = 'comment';
+            commentElement.innerHTML = `
+                <span class="comment-author">${newComment.author}</span>
+                <span class="comment-date">${formatDate(newComment.date)}</span>
+                <div class="comment-text">${newComment.text}</div>
+            `;
+            commentsList.appendChild(commentElement);
+            commentInput.value = ''; // Réinitialiser le champ de saisie
+        }
+        
         // Fonction pour afficher les articles
         function displayArticles() {
             const blogGrid = document.getElementById('blogGrid');
