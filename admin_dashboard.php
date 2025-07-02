@@ -1,10 +1,11 @@
 <?php
-session_start();
-// Vérification d'accès admin (à adapter selon votre logique)
-if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
-    header('Location: login.php');
-    exit();
-}
+require_once __DIR__ . '/auth/AuthMiddleware.php';
+
+// Vérifier que l'utilisateur est admin
+$auth = auth();
+$auth->requireAdmin();
+
+$currentUser = $auth->getCurrentUser();
 include 'head.php';
 include 'navbar.php';
 ?>

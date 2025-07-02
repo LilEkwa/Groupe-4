@@ -50,4 +50,30 @@ $currentUser = $auth->getCurrentUser();
             <?php endif; ?>
         </div>
     </div>
+            <a href="../aecgs/login/auth.php" class="me-3 text-dark">
+                <i class="fa fa-sign-in-alt text-primary me-2"></i>Login
+            </a>
+        <?php endif; ?>
+    </div>
+
+    <!-- Bouton pour mobile uniquement -->
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="fa fa-bars"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-0">
+            <a href="index.php" class="nav-item nav-link">Accueil</a>
+            <a href="about.php" style="white-space:nowrap;" class="nav-item nav-link">À propos</a>
+            <a href="event.php" class="nav-item nav-link">Événements</a>
+            <a href="blog2.php" class="nav-item nav-link">Blog</a>
+            <a href="contact.php" class="nav-item nav-link">Contact</a>
+            <a href="login.php" class="nav-item nav-link">Login</a>
+            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true): ?>
+                <a href="admin_dashboard.php" class="nav-item nav-link text-danger">Admin</a>
+            <?php endif; ?>
+        </div>
+
+
+    </div>
 </nav>
